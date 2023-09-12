@@ -4,24 +4,32 @@ import java.math.BigDecimal;
 
 import javax.persistence.EntityManager;
 
+import com.latam.alura.tienda.dao.CategoriaDao;
 import com.latam.alura.tienda.dao.ProductoDao;
+import com.latam.alura.tienda.modelo.Categoria;
 import com.latam.alura.tienda.modelo.Producto;
 import com.latam.alura.tienda.utils.JPAUtils;
 
 public class RegistroDeProducto {
 
     public static void main(String[] args) {
-        Producto sombrero = new Producto();
-        sombrero.setNombre("Sombrero Gucci ");
-        sombrero.setDescripcion("sombrero de alta gama con detalles en piel");
-        sombrero.setPrecio(new BigDecimal("18000.99"));
+        RegistroDeProducto();
+        EntityManager eMgr = JPAUtils.getEntityManager();
+        ProductoDao pDao = new ProductoDao(eMgr); 
+    }
+
+    private static void RegistroDeProducto() {
+        Categoria accesorios = new Categoria("ACCESORIOS");
+        Producto sombrero = new Producto("Sombrero Gucci", "sombrero de alta gama con detalles en piel", new BigDecimal("18000.99"), accesorios );
 
         EntityManager eMgr = JPAUtils.getEntityManager();
 
         ProductoDao pDao = new ProductoDao(eMgr); 
+        CategoriaDao cDao = new CategoriaDao(eMgr);
 
         eMgr.getTransaction().begin();
 
+        cDao.guardar(accesorios);
         pDao.guardar(sombrero);
 
         eMgr.getTransaction().commit();
