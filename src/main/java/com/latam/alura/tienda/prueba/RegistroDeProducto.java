@@ -3,10 +3,10 @@ package com.latam.alura.tienda.prueba;
 import java.math.BigDecimal;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
+import com.latam.alura.tienda.dao.ProductoDao;
 import com.latam.alura.tienda.modelo.Producto;
+import com.latam.alura.tienda.utils.JPAUtils;
 
 public class RegistroDeProducto {
 
@@ -16,11 +16,13 @@ public class RegistroDeProducto {
         sombrero.setDescripcion("sombrero de alta gama con detalles en piel");
         sombrero.setPrecio(new BigDecimal("18000.99"));
 
-        EntityManagerFactory eMgrFactory = Persistence.createEntityManagerFactory("tienda");
-        EntityManager eMgr = eMgrFactory.createEntityManager();
+        EntityManager eMgr = JPAUtils.getEntityManager();
+
+        ProductoDao pDao = new ProductoDao(eMgr); 
+
         eMgr.getTransaction().begin();
 
-        eMgr.persist(sombrero);
+        pDao.guardar(sombrero);
 
         eMgr.getTransaction().commit();
         eMgr.close();
