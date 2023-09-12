@@ -18,8 +18,11 @@ public class RegistroDeProducto {
 
         EntityManagerFactory eMgrFactory = Persistence.createEntityManagerFactory("tienda");
         EntityManager eMgr = eMgrFactory.createEntityManager();
+        eMgr.getTransaction().begin();
 
         eMgr.persist(sombrero);
 
+        eMgr.getTransaction().commit();
+        eMgr.close();
     }
 }
