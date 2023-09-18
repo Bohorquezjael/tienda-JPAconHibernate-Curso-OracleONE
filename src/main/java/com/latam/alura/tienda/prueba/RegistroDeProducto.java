@@ -13,12 +13,12 @@ import com.latam.alura.tienda.utils.JPAUtils;
 public class RegistroDeProducto {
 
     public static void main(String[] args) {
-        RegistroDeProducto();
+        registrarProducto();
         EntityManager eMgr = JPAUtils.getEntityManager();
         ProductoDao pDao = new ProductoDao(eMgr); 
     }
 
-    private static void RegistroDeProducto() {
+    private static void registrarProducto() {
         Categoria accesorios = new Categoria("ACCESORIOS");
         Producto sombrero = new Producto("Sombrero Gucci", "sombrero de alta gama con detalles en piel", new BigDecimal("18000.99"), accesorios );
 
