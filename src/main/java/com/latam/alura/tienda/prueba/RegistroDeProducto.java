@@ -14,8 +14,8 @@ public class RegistroDeProducto {
 
     public static void main(String[] args) {
         registrarProducto();
-        EntityManager eMgr = JPAUtils.getEntityManager();
-        ProductoDao pDao = new ProductoDao(eMgr); 
+        // EntityManager eMgr = JPAUtils.getEntityManager();
+        // ProductoDao pDao = new ProductoDao(eMgr); 
     }
 
     private static void registrarProducto() {
