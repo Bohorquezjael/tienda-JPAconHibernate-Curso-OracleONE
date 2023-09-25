@@ -10,41 +10,39 @@ import javax.persistence.Table;
 @Table(name = "clientes")
 public class Cliente {
 
-    public Cliente() {
-    }
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
-    private  String dni;
+    private DatosPersonales datosPersonales;
+
+    public Cliente() {
+    }
     
     public Cliente(String nombre, String dni) {
-        this.nombre = nombre;
-        this.dni = dni;
+        this.datosPersonales = new DatosPersonales(nombre, dni);
     }
     
     public String getDni() {
-        return dni;
+        return this.datosPersonales.getDni();
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        this.datosPersonales.setDni(dni);
     }
 
-    public Cliente(String nombre) {
-        this.nombre = nombre;
-    }
+    // public Cliente(String nombre) { 
+    //     this.datosPersonales = new DatosPersonales(nombre);
+    // }
     
     public Long getId() {
         return id;
     }
 
     public String getNombre() {
-        return nombre;
+        return this.datosPersonales.getNombre();
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.datosPersonales.setNombre(nombre);;
     }
 }
