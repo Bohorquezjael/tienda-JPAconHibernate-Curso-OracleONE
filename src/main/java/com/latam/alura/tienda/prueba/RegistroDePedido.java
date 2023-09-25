@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.latam.alura.tienda.VO.RelatorioDeVenta;
 import com.latam.alura.tienda.dao.CategoriaDao;
 import com.latam.alura.tienda.dao.ClienteDao;
 import com.latam.alura.tienda.dao.PedidoDao;
@@ -34,12 +35,8 @@ public class RegistroDePedido {
         eMgr.getTransaction().commit();
         BigDecimal total = pedidoDao.valorTotalVendido();
         System.out.println("el valor de la venta es: " + total);
-        List<Object[]> Ventas = pedidoDao.relatorioDeVentas();
-        for(Object[] obj: Ventas){
-            System.out.println(obj[0]);
-            System.out.println(obj[1]);
-            System.out.println(obj[2]);
-        }
+        List<RelatorioDeVenta> Ventas = pedidoDao.relatorioDeVentasVO();
+        Ventas.forEach(System.out::println);
         eMgr.close();
 
     }
