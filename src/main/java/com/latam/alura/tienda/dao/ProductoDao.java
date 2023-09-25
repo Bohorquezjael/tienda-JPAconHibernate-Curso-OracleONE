@@ -1,9 +1,14 @@
 package com.latam.alura.tienda.dao;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import com.latam.alura.tienda.modelo.Producto;
 
@@ -54,4 +59,27 @@ public class ProductoDao {
     public BigDecimal consultarPrecio(String nombre) {
         return eM.createNamedQuery("Producto.consultarPrecio",BigDecimal.class).setParameter("nombre", nombre).getSingleResult();
     }
+
+    public List<Producto> consultarPorParametrosConAPICriteria(String nombre, BigDecimal precio,LocalDate fecha){
+		CriteriaBuilder builder = eM.getCriteriaBuilder();
+		CriteriaQuery<Producto> query = builder.createQuery(Producto.class);
+		Root<Producto> from = query.from(Producto.class);
+		
+		
+		Predicate filtro = builder.and();
+		if(nombre!=null && !nombre.trim().isEmpty()) {
+			filtro=builder.and(filtro,builder.equal(from.get("nombre"), nombre));
+		}
+		if(precio!=null && !precio.equals(new BigDecimal(0))) {
+			filtro=builder.and(filtro,builder.equal(from.get("precio"), precio));
+		}
+		if(fecha!=null) {
+			filtro=builder.and(filtro,builder.equal(from.get("fechaDeRegistro"), fecha));
+		}
+		
+		query=query.where(filtro);
+		return eM.createQuery(query).getResultList();
+
+	
+	}
 }
