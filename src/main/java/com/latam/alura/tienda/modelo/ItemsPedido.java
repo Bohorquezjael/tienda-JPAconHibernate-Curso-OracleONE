@@ -70,6 +70,10 @@ public class ItemsPedido {
     ItemsPedido() {
     }
 
+    public BigDecimal getValor() {
+        return  this.precioUnitario.multiply(new BigDecimal(this.cantidad));
+    }
+
     
 
 }
