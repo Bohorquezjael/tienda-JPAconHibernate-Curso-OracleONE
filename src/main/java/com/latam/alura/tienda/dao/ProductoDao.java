@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -59,6 +60,32 @@ public class ProductoDao {
     public BigDecimal consultarPrecio(String nombre) {
         return eM.createNamedQuery("Producto.consultarPrecio",BigDecimal.class).setParameter("nombre", nombre).getSingleResult();
     }
+
+    public List<Producto> consultarPorParametros(String nombre, BigDecimal precio,LocalDate fecha){
+		StringBuilder jpql=new StringBuilder("SELECT p FROM Producto p WHERE 1=1 ");
+		
+		if(nombre!=null && !nombre.trim().isEmpty()) {
+			jpql.append("AND p.nombre=:nombre ");
+		}
+		if(precio!=null && !precio.equals(new BigDecimal(0))) {
+			jpql.append("AND p.precio=:precio ");
+		}
+		if(fecha!=null) {
+			jpql.append("AND p.fechaDeRegistro=:fecha");
+		}
+		TypedQuery<Producto> query = eM.createQuery(jpql.toString(),Producto.class);
+		if(nombre!=null && !nombre.trim().isEmpty()) {
+			query.setParameter("nombre", nombre);
+		}
+		if(precio!=null && !precio.equals(new BigDecimal(0))) {
+			query.setParameter("precio", precio);
+		}
+		if(fecha!=null) {
+			query.setParameter("fechaDeRegistro", fecha);
+		}
+
+		return query.getResultList();		
+	}
 
     public List<Producto> consultarPorParametrosConAPICriteria(String nombre, BigDecimal precio,LocalDate fecha){
 		CriteriaBuilder builder = eM.getCriteriaBuilder();
