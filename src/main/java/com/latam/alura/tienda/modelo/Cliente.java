@@ -17,18 +17,18 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private Long dni;
+    private  String dni;
     
-    public Cliente(String nombre, Long dni) {
+    public Cliente(String nombre, String dni) {
         this.nombre = nombre;
         this.dni = dni;
     }
     
-    public Long getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
