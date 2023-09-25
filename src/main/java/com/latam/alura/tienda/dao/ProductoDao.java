@@ -50,4 +50,8 @@ public class ProductoDao {
         String jpql="SELECT P.precio FROM Producto AS P WHERE P.nombre=:nombre";
         return eM.createQuery(jpql,BigDecimal.class).setParameter("nombre", nombre).getSingleResult();
     }
+
+    public BigDecimal consultarPrecio(String nombre) {
+        return eM.createNamedQuery("Producto.consultarPrecio",BigDecimal.class).setParameter("nombre", nombre).getSingleResult();
+    }
 }
