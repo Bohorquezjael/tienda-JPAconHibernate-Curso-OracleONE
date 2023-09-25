@@ -15,16 +15,17 @@ public class RegistroDeProducto {
     public static void main(String[] args) {
         registrarProducto();
         // EntityManager eMgr = JPAUtils.getEntityManager();
-        // ProductoDao pDao = new ProductoDao(eMgr); 
+        // ProductoDao pDao = new ProductoDao(eMgr);
     }
 
     private static void registrarProducto() {
         Categoria accesorios = new Categoria("ACCESORIOS");
-        Producto sombrero = new Producto("Sombrero Gucci", "sombrero de alta gama con detalles en piel", new BigDecimal("18000.99"), accesorios );
+        Producto sombrero = new Producto("Sombrero Gucci", "sombrero de alta gama con detalles en piel",
+                new BigDecimal("18000.99"), accesorios);
 
         EntityManager eMgr = JPAUtils.getEntityManager();
 
-        ProductoDao pDao = new ProductoDao(eMgr); 
+        ProductoDao pDao = new ProductoDao(eMgr);
         CategoriaDao cDao = new CategoriaDao(eMgr);
 
         eMgr.getTransaction().begin();

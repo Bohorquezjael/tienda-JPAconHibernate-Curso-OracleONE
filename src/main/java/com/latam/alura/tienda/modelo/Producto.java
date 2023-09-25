@@ -26,7 +26,9 @@ public class Producto {
     private Categoria categoria;
 
 
-    
+    public Producto(){
+        
+    }
 
     /**
      * @param nombre
